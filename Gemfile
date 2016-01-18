@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.5'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -53,6 +53,9 @@ group :development, :test do
   # gem "did_you_mean", '~> 1.0.0'
 
   gem "rspec"
+
+  # http://morizyun.github.io/blog/brakeman-rails-security-checker/?utm_content=buffer17d1a&utm_medium=social&utm_source=facebook.com&utm_campaign=buffer
+  gem 'brakeman', require: false
 end
 
 
