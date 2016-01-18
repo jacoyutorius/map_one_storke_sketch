@@ -1,0 +1,1 @@
+# map_one_storke_sketch
