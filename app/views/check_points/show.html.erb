@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<div style='width: 100%;'>
+  <div id="map" style='width: 100%; height: 400px;'></div>
+</div>
+<script type="text/javascript">
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":"61"},{"lightness":"25"},{"hue":"#ff003c"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46e9ec"},{"visibility":"on"}]}]
+  },
+  internal: {id: 'map'}},
+  function(){
+    markers = handler.addMarkers(<%=raw @hash.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+  });
+
+  // var handler = Gmaps.build('Google');
+  // handler.buildMap({ internal: {id: 'geolocation'} }, function(){
+  // if(navigator.geolocation)
+  //   navigator.geolocation.getCurrentPosition(displayOnMap);
+  // });
+  //
+  // function displayOnMap(position){
+  // var marker = handler.addMarker({
+  //   lat: position.coords.latitude,
+  //   lng: position.coords.longitude
+  // });
+  // handler.map.centerOn(marker);
+  // };
+</script>
+
+<p>
+  <strong>Address:</strong>
+  <%= @check_point.address %>
+</p>
+<p>
+  <strong>Latitude:</strong>
+  <%= @check_point.latitude %>
+</p>
+<p>
+  <strong>Longitude:</strong>
+  <%= @check_point.longitude %>
+</p>
+
+
+<%= link_to 'Edit', edit_check_point_path(@check_point) %> |
+<%= link_to 'Back', check_points_path %>

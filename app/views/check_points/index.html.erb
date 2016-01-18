@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Check Points</h1>
+
+<div style='width: 100%;'>
+  <div id="multi_overlays" style='width: 100%; height: 400px;'></div>
+</div>
+<script type="text/javascript">
+  var handler = Gmaps.build('Google');
+  handler.buildMap({ internal: {id: 'multi_overlays'}}, function(){
+
+    var polylines = handler.addPolylines(
+      <%=raw @polylines.to_json %>,
+      { strokeColor: 'blue'}
+    );
+    handler.bounds.extendWith(polylines);
+    handler.fitMapToBounds();
+
+  });
+</script>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @check_points.each do |check_point| %>
+      <tr>
+        <td><%= check_point.address %></td>
+        <td><%= check_point.latitude %></td>
+        <td><%= check_point.longitude %></td>
+        <td><%= link_to 'Show', check_point %></td>
+        <td><%= link_to 'Edit', edit_check_point_path(check_point) %></td>
+        <td><%= link_to 'Destroy', check_point, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Check point', new_check_point_path %>
