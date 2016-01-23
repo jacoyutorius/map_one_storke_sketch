@@ -1,5 +1,28 @@
 <h1>New Check Point</h1>
 
+<div style='width: 100%;'>
+  <div id="geolocation" style='width: 100%; height: 400px;'></div>
+</div>
+<script type="text/javascript">
+  var handler = Gmaps.build('Google');
+  handler.buildMap({ internal: {id: 'geolocation'} }, function(){
+  if(navigator.geolocation)
+    navigator.geolocation.getCurrentPosition(displayOnMap);
+  });
+
+  function displayOnMap(position){
+  var marker = handler.addMarker({
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
+  });
+  handler.map.centerOn(marker);
+
+  $("#check_point_latitude").val(marker.serviceObject.position.G);
+  $("#check_point_longitude").val(marker.serviceObject.position.K);
+  };
+</script>
+
+
 <%= render 'form' %>
 
 <%= link_to 'Back', check_points_path %>

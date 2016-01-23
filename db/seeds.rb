@@ -45,3 +45,6 @@ end
 ].each do |data_url|
   create_park_from_json data_url
 end
+
+# 住所にスペースが入っていると位置情報が検出できないっぽいので排除する
+Park.all.select{|r|r.address.match(/\s|\S/)}.each{|r|r.address.gsub!(" ", "");r.save!; }

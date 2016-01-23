@@ -45,7 +45,11 @@ class CheckPointsController < ApplicationController
   # POST /check_points.json
   def create
     @check_point = CheckPoint.new(check_point_params)
+    @check_point.latitude = check_point_params[:latitude].to_f
+    @check_point.longitude = check_point_params[:longitude].to_f
 
+# binding.pry
+p @check_point
     respond_to do |format|
       if @check_point.save
         format.html { redirect_to @check_point, notice: 'Check point was successfully created.' }
@@ -89,6 +93,6 @@ class CheckPointsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def check_point_params
-      params.require(:check_point).permit(:address)
+      params.require(:check_point).permit(:address, :latitude, :longitude)
     end
 end
